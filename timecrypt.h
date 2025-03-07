@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 // [32 - 126] ASCII Range
 
 int otime = (time(0) % 94) + 1;
 
+// endls
 void endl(int n) {
     for (int c = 0; c < n; c++)
         std::cout << std::endl;
@@ -15,10 +17,23 @@ void endl() {
 }
 
 namespace tc {
+
+    //utility
     std::string toLower(std::string sentence) {
         for (int c = 0; c < sentence.length(); c++)
             if (isalpha(sentence[c]))
                 sentence[c] = tolower(sentence[c]);
+        return sentence;
+    }
+
+    std::string intToString(int n) {
+        std::string sentence = "";
+
+        do {
+            sentence.insert(sentence.begin(), char((n % 10) + '0'));
+            n /= 10;
+        } while (n > 0);
+
         return sentence;
     }
 
@@ -30,6 +45,7 @@ namespace tc {
         return 1;
     }
 
+    // algorithms
     std::string caesarAlgo(std::string text, int key, bool enc) {
         if (enc) {
             std::string encrypted = text;
@@ -68,23 +84,21 @@ namespace tc {
         }
     }
 
-    std::string timekeyAlgo(std::string text, std::string key, bool enc) {
-        if (enc) {
-            std::string encrypted = text;
+    std::string decryptKeybase(std::string encryptedData) {
+        std::string decryptedkey = "";
+        int key = (encryptedData[0] - '0') * 10 + (encryptedData[1] - '0');
 
-            // ENCRYPTION ALGO HERE
+        // for (int c = 2; c < encryptedData.length(); c++) {
+        //     if (char(((int(encryptedData[c]) - key - 32 + 95) % 95) + 32) == ' ');
+        //         break;
 
-            return encrypted;
-        }
-        else {
-            std::string decrypted = text;
-
-            // DECRYPTION ALGO HERE
-
-            return decrypted;
-        }
+        //     decryptedkey.insert(decryptedkey.begin(), char(c + '0'));
+        // }                FINISH!!!!!!!!!
+        
+        return decryptedkey;
     }
 
+    // GUIs and rest
     void caesarEnc(int key) {
         std::string command;
         std::string plaintext;
@@ -205,66 +219,6 @@ namespace tc {
         }
     }
 
-    void timekeyEnc(std::string key) {
-        std::string command;
-        std::string plaintext;
-
-        while (true) {
-            std::cout << "------| Timekey Encryption\n------| Enter your plaintext:" << std::endl;
-                    
-            std::cin.ignore();
-            std::getline(std::cin, plaintext);
-
-            endl();
-            std::cout << "------| Timekey Encryption\n------| Your encrypted string is:\n------| " << '"' << timekeyAlgo(plaintext, key, 1) << '"' << "\n------| (key: " << key << ')' << std::endl;
-            endl();
-            std::cout << "------| Timekey Encryption\n------| Would you like to encrypt another string?\n------| (y | n)" << std::endl;
-
-            do {
-                std::cin >> command;
-                command = toLower(command);
-            } while (command != "y" && command != "n");
-
-            if (command == "y") {
-                endl();
-                continue;
-            }
-            else if (command == "n") {
-                return;
-            }
-        }
-    }
-
-    void timekeyDec(std::string key) {
-        std::string command;
-        std::string text;
-
-        while (true) {
-            std::cout << "------| Timekey Decryption\n------| Enter your encrypted string:" << std::endl;
-                    
-            std::cin.ignore();
-            std::getline(std::cin, text);
-
-            endl();
-            std::cout << "------| Timekey Decryption\n------| Your decrypted string is:\n------| " << '"' << timekeyAlgo(text, key, 0) << '"' << "\n------| (key: " << key << ')' << std::endl;
-            endl();
-            std::cout << "------| Timekey Decryption\n------| Would you like to decrypt another string?\n------| (y | n)" << std::endl;
-
-            do {
-                std::cin >> command;
-                command = toLower(command);
-            } while (command != "y" && command != "n");
-
-            if (command == "y") {
-                endl();
-                continue;
-            }
-            else if (command == "n") {
-                return;
-            }
-        }
-    }
-
     void caesar(bool enc) {
         int key;
         std::string command;
@@ -334,19 +288,44 @@ namespace tc {
         std::string command;
 
         if (enc) {
-            std::cout << "------| Vigenere Encryption\n------| What key should the text be encrypted with?\n------| (any word)" << std::endl;
+            std::cout << "------| Vigenere Encryption\n------| Would you like to use your own key?\n------| (y | n)" << std::endl;
 
             do {
-                std::cin >> key;
-            } while (!isStringAlphabetic(key));
+                std::cin >> command;
+                command = toLower(command);
+            } while (command != "y" && command != "n");
+    
+            if (command == "y") {
+                endl();
+                std::cout << "------| Vigenere Encryption\n------| What key should the text be encrypted with?\n------| (any word)" << std::endl;
 
-            key = toLower(key);
+                std::fstream kbase;
+                kbase.open("keybase.txt", std::fstream::in | std::fstream::out | std::fstream::app);
 
-            endl();
-            std::cout << "------| Vigenere Encryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
+                do {
+                    std::cin >> key;
+                } while (!isStringAlphabetic(key));
 
-            endl();
-            vigenereEnc(key);
+                key = toLower(key);
+
+                if (kbase.is_open()) {
+                    kbase << (intToString(otime / 10) + intToString(otime % 10) + caesarAlgo(key + " ", otime, 1));
+                }
+                kbase.close();
+
+                endl();
+                std::cout << "------| Vigenere Encryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
+
+                endl();
+                vigenereEnc(key);
+            }
+            else if (command == "n") {
+
+                // FINISH!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                endl();
+                vigenereEnc(key);
+            }
     
             endl();
         }
@@ -369,54 +348,14 @@ namespace tc {
         }
     }
 
-    void timekey(bool enc) {
-        std::string key;
-        std::string command;
-
-        if (enc) {
-            std::cout << "------| Timekey Encryption\n------| What key should the text be encrypted with?\n------| (any word)" << std::endl;
-
-            do {
-                std::cin >> key;
-            } while (!isStringAlphabetic(key));
-
-            key = toLower(key);
-
-            endl();
-            std::cout << "------| Timekey Encryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
-
-            endl();
-            timekeyEnc(key);
-    
-            endl();
-        }
-        else {
-            std::cout << "------| Timekey Decryption\n------| What key should the text be decrypted with?\n------| (a word)" << std::endl;
-
-            do {
-                std::cin >> key;
-            } while (!isStringAlphabetic(key));
-
-            key = toLower(key);
-
-            endl();
-            std::cout << "------| Timekey Decryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
-
-            endl();
-            timekeyDec(key);
-    
-            endl();
-        }
-    }
-
     void encrypt() {
         std::string command;
-        std::cout << "----| Encryption\n----| Choose the mode:\n----| Caesar | Vigenere | Timekey | Exit\n----| (c | v | t | ex)" << std::endl;
+        std::cout << "----| Encryption\n----| Choose the mode:\n----| Caesar | Vigenere | Exit\n----| (c | v | ex)" << std::endl;
 
         do {
             std::cin >> command;
             command = toLower(command);
-        } while (command != "ex" && command != "c" && command != "v" && command != "t");
+        } while (command != "ex" && command != "c" && command != "v");
 
         if (command == "ex")
             return;
@@ -428,22 +367,18 @@ namespace tc {
             endl();
             vigenere(1);
         }
-        else if (command == "t") {
-            endl();
-            timekey(1);
-        }
 
         endl();
     }
 
     void decrypt() {
         std::string command;
-        std::cout << "----| Decryption\n----| Choose the mode:\n----| Caesar | Vigenere | Timekey | Exit\n----| (c | v | t | ex)" << std::endl;
+        std::cout << "----| Decryption\n----| Choose the mode:\n----| Caesar | Vigenere | Exit\n----| (c | v | ex)" << std::endl;
 
         do {
             std::cin >> command;
             command = toLower(command);
-        } while (command != "ex" && command != "c" && command != "v" && command != "t");
+        } while (command != "ex" && command != "c" && command != "v");
 
         if (command == "ex")
             return;
@@ -454,10 +389,6 @@ namespace tc {
         else if (command == "v") {
             endl();
             vigenere(0);
-        }
-        else if (command == "t") {
-            endl();
-            timekey(0);
         }
 
         endl();
