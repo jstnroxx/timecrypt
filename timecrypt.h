@@ -73,7 +73,8 @@ namespace tc {
             std::string encrypted = text;
 
             for (int c = 0; c < text.length(); c++) {
-                
+                // key = ((int(key[c % key.length()]) % 94) + 1)
+                encrypted[c] = char(((int(encrypted[c]) + ((int(key[c % key.length()]) % 94) + 1) - 32) % 95) + 32);
             }
 
             return encrypted;
@@ -82,7 +83,7 @@ namespace tc {
             std::string decrypted = text;
 
             for (int c = 0; c < text.length(); c++) {
-                // DECRYPTION ALGO HERE
+                decrypted[c] = char(((int(decrypted[c]) - ((int(key[c % key.length()]) % 94) + 1) - 32 + 95) % 95) + 32);
             }
 
             return decrypted;
