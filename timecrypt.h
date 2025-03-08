@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
 // [32 - 126] ASCII Range
 
@@ -84,17 +85,22 @@ namespace tc {
         }
     }
 
-    std::string decryptKeybase(std::string encryptedData) {
+    std::string decryptKeybase(std::string &encryptedData) {
         std::string decryptedkey = "";
+        int charsread = 3;
         int key = (encryptedData[0] - '0') * 10 + (encryptedData[1] - '0');
 
-        // for (int c = 2; c < encryptedData.length(); c++) {
-        //     if (char(((int(encryptedData[c]) - key - 32 + 95) % 95) + 32) == ' ');
-        //         break;
+        for (int c = 2; c < encryptedData.length(); c++) {
+            char cursymb = char(((int(encryptedData[c]) - key - 32 + 95) % 95) + 32);
 
-        //     decryptedkey.insert(decryptedkey.begin(), char(c + '0'));
-        // }                FINISH!!!!!!!!!
+            if (cursymb == ' ')
+                break;
+
+            decryptedkey.insert(decryptedkey.end(), cursymb);
+            charsread++;
+        }
         
+        encryptedData.erase(0, charsread);
         return decryptedkey;
     }
 
@@ -295,8 +301,8 @@ namespace tc {
                 command = toLower(command);
             } while (command != "y" && command != "n");
     
-            if (command == "y") {
-                endl();
+             if (command == "y") {
+               endl();
                 std::cout << "------| Vigenere Encryption\n------| What key should the text be encrypted with?\n------| (any word)" << std::endl;
 
                 std::fstream kbase;
@@ -320,9 +326,35 @@ namespace tc {
                 vigenereEnc(key);
             }
             else if (command == "n") {
+                std::string keysdata;
+                std::fstream kbase;
+                kbase.open("keybase.txt", std::fstream::in);
 
-                // FINISH!!!!!!!!!!!!!!!!!!!!!!!!!!
+                if (kbase.is_open()) {
+                    std::cout << "------| Database accessed successfully!";
 
+                    kbase.seekg(0);
+                    std::getline(kbase, keysdata);
+                    
+                    kbase.close();
+                }
+                else {
+                    std::cout << "Failed to access the keybase.txt" << std::endl;
+                    kbase.close();
+                    return;
+                }
+
+                std::vector<std::string> keys;
+
+                while(!keysdata.empty()) {
+                    keys.push_back(decryptKeybase(keysdata));
+                }
+
+                key = keys[time(0) % keys.size()];
+
+                endl();
+                std::cout << "------| Vigenere Encryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
+                
                 endl();
                 vigenereEnc(key);
             }
