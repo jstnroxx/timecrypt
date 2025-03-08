@@ -72,14 +72,18 @@ namespace tc {
         if (enc) {
             std::string encrypted = text;
 
-            // ENCRYPTION ALGO HERE
+            for (int c = 0; c < text.length(); c++) {
+                
+            }
 
             return encrypted;
         }
         else {
             std::string decrypted = text;
 
-            // DECRYPTION ALGO HERE
+            for (int c = 0; c < text.length(); c++) {
+                // DECRYPTION ALGO HERE
+            }
 
             return decrypted;
         }
