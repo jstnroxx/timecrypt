@@ -1,17 +1,17 @@
 #include <iostream>
 #include <string>
-#include "timecrypt.h" // Core library
+#include "timecrypt.h" // core library
 
-// Main
+// menu
 int main()
 {
-    std::cout << "--| Timecrypt v1\n--| Hello! Your current key is: " << otime;
-    endl(2);
+    std::cout << "--| Timecrypt v1.1\n--| Hello! Your current key is: " << otime;
+    
 
     while (true) {
         std::string command;
 
-        std::cout << "--| Menu\n--| Choose the mode:\n--| Encrypt | Decrypt | Exit\n--| (e | d | ex)" << std::endl;
+        std::cout << "\n\n--| Menu\n--| Choose the mode:\n--| Encrypt | Decrypt | Exit\n--| (e | d | ex)\n";
 
         do {
             std::cin >> command;
@@ -21,15 +21,11 @@ int main()
         if (command == "ex")
             break;
         else if (command == "e") {
-            endl();
             tc::encrypt();
         }
         else if (command == "d") {
-            endl(1);
             tc::decrypt();
         }
-
-        endl();
     }
 
     return 0;

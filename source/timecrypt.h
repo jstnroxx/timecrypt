@@ -115,15 +115,13 @@ namespace tc {
         std::string plaintext;
 
         while (true) {
-            std::cout << "------| Caesar Encryption\n------| Enter your plaintext:" << std::endl;
+            std::cout << "------| Caesar Encryption\n------| Enter your plaintext:\n";
                     
             std::cin.ignore();
             std::getline(std::cin, plaintext);
 
-            endl();
-            std::cout << "------| Caesar Encryption\n------| Your encrypted string is:\n------| " << '"' << caesarAlgo(plaintext, key, 1) << '"' << "\n------| (key: " << key << ')' << std::endl;
-            endl();
-            std::cout << "------| Caesar Encryption\n------| Would you like to encrypt another string?\n------| (y | n)" << std::endl;
+            std::cout << "\n------| Caesar Encryption\n------| Your encrypted string is:\n------| " << '"' << caesarAlgo(plaintext, key, 1) << '"' << "\n------| (key: " << key << ")\n";
+            std::cout << "\n------| Caesar Encryption\n------| Would you like to encrypt another string?\n------| (y | n)\n";
 
             do {
                 std::cin >> command;
@@ -145,15 +143,13 @@ namespace tc {
         std::string text;
 
         while (true) {
-            std::cout << "------| Caesar Decryption\n------| Enter your encrypted string:" << std::endl;
+            std::cout << "------| Caesar Decryption\n------| Enter your encrypted string:\n";
                     
             std::cin.ignore();
             std::getline(std::cin, text);
 
-            endl();
-            std::cout << "------| Caesar Decryption\n------| Your decrypted string is:\n------| " << '"' << caesarAlgo(text, key, 0) << '"' << "\n------| (key: " << '"' << key << ')' << std::endl;
-            endl();
-            std::cout << "------| Caesar Decryption\n------| Would you like to decrypt another string?\n------| (y | n)" << std::endl;
+            std::cout << "\n------| Caesar Decryption\n------| Your decrypted string is:\n------| " << '"' << caesarAlgo(text, key, 0) << '"' << "\n------| (key: " << '"' << key << ")\n";
+            std::cout << "\n------| Caesar Decryption\n------| Would you like to decrypt another string?\n------| (y | n)\n";
 
             do {
                 std::cin >> command;
@@ -175,15 +171,13 @@ namespace tc {
         std::string plaintext;
 
         while (true) {
-            std::cout << "------| Vigenere Encryption\n------| Enter your plaintext:" << std::endl;
+            std::cout << "------| Vigenere Encryption\n------| Enter your plaintext:\n";
                     
             std::cin.ignore();
             std::getline(std::cin, plaintext);
 
-            endl();
-            std::cout << "------| Vigenere Encryption\n------| Your encrypted string is:\n------| " << '"' << vigenereAlgo(plaintext, key, 1) << '"' << "\n------| (key: " << key << ')' << std::endl;
-            endl();
-            std::cout << "------| Vigenere Encryption\n------| Would you like to encrypt another string?\n------| (y | n)" << std::endl;
+            std::cout << "\n------| Vigenere Encryption\n------| Your encrypted string is:\n------| " << '"' << vigenereAlgo(plaintext, key, 1) << '"' << "\n------| (key: " << key << ")\n";
+            std::cout << "\n------| Vigenere Encryption\n------| Would you like to encrypt another string?\n------| (y | n)\n";
 
             do {
                 std::cin >> command;
@@ -205,15 +199,13 @@ namespace tc {
         std::string text;
 
         while (true) {
-            std::cout << "------| Vigenere Decryption\n------| Enter your encrypted string:" << std::endl;
+            std::cout << "------| Vigenere Decryption\n------| Enter your encrypted string:\n";
                     
             std::cin.ignore();
             std::getline(std::cin, text);
 
-            endl();
-            std::cout << "------| Vigenere Decryption\n------| Your decrypted string is:\n------| " << '"' << vigenereAlgo(text, key, 0) << '"' << "\n------| (key: " << key << ')' << std::endl;
-            endl();
-            std::cout << "------| Vigenere Decryption\n------| Would you like to decrypt another string?\n------| (y | n)" << std::endl;
+            std::cout << "\n------| Vigenere Decryption\n------| Your decrypted string is:\n------| " << '"' << vigenereAlgo(text, key, 0) << '"' << "\n------| (key: " << key << ")\n";
+            std::cout << "\n------| Vigenere Decryption\n------| Would you like to decrypt another string?\n------| (y | n)\n";
 
             do {
                 std::cin >> command;
@@ -235,7 +227,7 @@ namespace tc {
         std::string command;
 
         if (enc) {
-            std::cout << "------| Caesar Encryption\n------| Would you like to use your own key?\n------| (y | n)" << std::endl;
+            std::cout << "------| Caesar Encryption\n------| Would you like to use your own key?\n------| (y | n)\n";
 
             do {
                 std::cin >> command;
@@ -243,15 +235,13 @@ namespace tc {
             } while (command != "y" && command != "n");
     
             if (command == "y") {
-                endl();
-                std::cout << "------| Caesar Encryption\n------| Enter your key (1-94):" << std::endl;
+                std::cout << "\n------| Caesar Encryption\n------| Enter your key (1-94):\n";
 
                 do {
                     std::cin >> key;
                 } while (key < 1 || key > 94);
 
-                endl();
-                std::cout << "------| Caesar Encryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
+                std::cout << "\n------| Caesar Encryption\n------| Key successfully set!\n------| (" << key << ")\n";
 
                 endl();
                 caesarEnc(key);
@@ -264,7 +254,7 @@ namespace tc {
             endl();
         }
         else {
-            std::cout << "------| Caesar Decryption\n------| Is there a specific key?\n------| (y | n)" << std::endl;
+            std::cout << "------| Caesar Decryption\n------| Is there a specific key?\n------| (y | n)\n";
 
             do {
                 std::cin >> command;
@@ -272,15 +262,13 @@ namespace tc {
             } while (command != "y" && command != "n");
     
             if (command == "y") {
-                endl();
-                std::cout << "------| Caesar Decryption\n------| Enter your key (1-94):" << std::endl;
+                std::cout << "\n------| Caesar Decryption\n------| Enter your key (1-94):\n";
 
                 do {
                     std::cin >> key;
                 } while (key < 1 || key > 94);
 
-                endl();
-                std::cout << "------| Caesar Decryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
+                std::cout << "\n------| Caesar Decryption\n------| Key successfully set!\n------| (" << key << ")\n";
 
                 endl();
                 caesarDec(key);
@@ -299,7 +287,7 @@ namespace tc {
         std::string command;
 
         if (enc) {
-            std::cout << "------| Vigenere Encryption\n------| Would you like to use your own key?\n------| (y | n)" << std::endl;
+            std::cout << "------| Vigenere Encryption\n------| Would you like to use your own key?\n------| (y | n)\n";
 
             do {
                 std::cin >> command;
@@ -307,8 +295,7 @@ namespace tc {
             } while (command != "y" && command != "n");
     
              if (command == "y") {
-               endl();
-                std::cout << "------| Vigenere Encryption\n------| What key should the text be encrypted with?\n------| (any word)" << std::endl;
+                std::cout << "\n------| Vigenere Encryption\n------| What key should the text be encrypted with?\n------| (any word)\n";
 
                 std::fstream kbase;
                 kbase.open("keybase.txt", std::fstream::in | std::fstream::out | std::fstream::app);
@@ -324,8 +311,7 @@ namespace tc {
                 }
                 kbase.close();
 
-                endl();
-                std::cout << "------| Vigenere Encryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
+                std::cout << "\n------| Vigenere Encryption\n------| Key successfully set!\n------| (" << key << ")\n";
 
                 endl();
                 vigenereEnc(key);
@@ -336,7 +322,7 @@ namespace tc {
                 kbase.open("keybase.txt", std::fstream::in);
 
                 if (kbase.is_open()) {
-                    std::cout << "\n------| Database accessed successfully!";
+                    std::cout << "\n------| Vigenere Encryption\n------| Database accessed successfully!";
 
                     kbase.seekg(0);
                     std::getline(kbase, keysdata);
@@ -344,7 +330,7 @@ namespace tc {
                     kbase.close();
                 }
                 else {
-                    std::cout << "\n------| Failed to access the keybase.txt\n";
+                    std::cout << "\n------| Vigenere Encryption\n------| Failed to access the keybase.txt\n";
                     kbase.close();
                     return;
                 }
@@ -362,8 +348,7 @@ namespace tc {
 
                 key = keys[time(0) % keys.size()];
 
-                endl();
-                std::cout << "------| Vigenere Encryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
+                std::cout << "\n------| Key successfully set!\n------| (" << key << ")\n";
                 
                 endl();
                 vigenereEnc(key);
@@ -372,7 +357,7 @@ namespace tc {
             endl();
         }
         else {
-            std::cout << "------| Vigenere Decryption\n------| What key should the text be decrypted with?\n------| (a word)" << std::endl;
+            std::cout << "------| Vigenere Decryption\n------| What key should the text be decrypted with?\n------| (a word)\n";
 
             do {
                 std::cin >> key;
@@ -380,8 +365,7 @@ namespace tc {
 
             key = toLower(key);
 
-            endl();
-            std::cout << "------| Vigenere Decryption\n------| Key successfully set!\n------| (" << key << ')' << std::endl;
+            std::cout << "\n------| Vigenere Decryption\n------| Key successfully set!\n------| (" << key << ")\n";
 
             endl();
             vigenereDec(key);
@@ -392,7 +376,7 @@ namespace tc {
 
     void encrypt() {
         std::string command;
-        std::cout << "----| Encryption\n----| Choose the mode:\n----| Caesar | Vigenere | Exit\n----| (c | v | ex)" << std::endl;
+        std::cout << "\n----| Encryption\n----| Choose the mode:\n----| Caesar | Vigenere | Exit\n----| (c | v | ex)\n";
 
         do {
             std::cin >> command;
@@ -415,7 +399,7 @@ namespace tc {
 
     void decrypt() {
         std::string command;
-        std::cout << "----| Decryption\n----| Choose the mode:\n----| Caesar | Vigenere | Exit\n----| (c | v | ex)" << std::endl;
+        std::cout << "\n----| Decryption\n----| Choose the mode:\n----| Caesar | Vigenere | Exit\n----| (c | v | ex)\n";
 
         do {
             std::cin >> command;
