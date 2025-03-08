@@ -331,7 +331,7 @@ namespace tc {
                 kbase.open("keybase.txt", std::fstream::in);
 
                 if (kbase.is_open()) {
-                    std::cout << "------| Database accessed successfully!";
+                    std::cout << "\n------| Database accessed successfully!";
 
                     kbase.seekg(0);
                     std::getline(kbase, keysdata);
@@ -339,8 +339,13 @@ namespace tc {
                     kbase.close();
                 }
                 else {
-                    std::cout << "Failed to access the keybase.txt" << std::endl;
+                    std::cout << "\n------| Failed to access the keybase.txt\n";
                     kbase.close();
+                    return;
+                }
+
+                if (keysdata.empty()) {
+                    std::cout << "\n------| Sorry! The keybase.txt holds no data at the moment.\n";
                     return;
                 }
 
