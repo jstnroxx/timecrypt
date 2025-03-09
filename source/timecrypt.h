@@ -238,7 +238,12 @@ namespace tc {
                 std::cout << "\n------| Caesar Encryption\n------| Enter your key (1-94):\n";
 
                 do {
-                    std::cin >> key;
+                    if (std::cin >> key)
+                        continue;
+                    else {
+                        std::cin.clear();
+                        std::cin.ignore();
+                    }
                 } while (key < 1 || key > 94);
 
                 std::cout << "\n------| Caesar Encryption\n------| Key successfully set!\n------| (" << key << ")\n";
@@ -265,7 +270,12 @@ namespace tc {
                 std::cout << "\n------| Caesar Decryption\n------| Enter your key (1-94):\n";
 
                 do {
-                    std::cin >> key;
+                    if (std::cin >> key)
+                        continue;
+                    else {
+                        std::cin.clear();
+                        std::cin.ignore();
+                    }
                 } while (key < 1 || key > 94);
 
                 std::cout << "\n------| Caesar Decryption\n------| Key successfully set!\n------| (" << key << ")\n";

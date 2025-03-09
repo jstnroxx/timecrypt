@@ -5,7 +5,7 @@
 // menu
 int main()
 {
-    std::cout << "--| Timecrypt v1.1\n--| Hello! Your current key is: " << otime;
+    std::cout << "--| Timecrypt v1.2\n--| Hello! Your current key is: " << otime;
     
 
     while (true) {
